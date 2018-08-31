@@ -1,0 +1,90 @@
+<script>
+var Id;
+var Name; 
+var Qty; 
+var Unit;
+window.onload = function cheklist(){
+	//listIngredients();
+	
+}
+ function addIngredients(id,name,qty,unit) {
+                    $('#popupa').modal('show');
+                   // document.getElementById('mapprofile1').style.display="block";
+                    //alert('Longi');
+                document.getElementById("basic-addon2").innerHTML= unit ;
+				document.getElementById("Ititle").innerHTML= name ;
+				document.getElementById("Iid").value= id ;
+				//document.getElementById("qty").value= id ;
+				//document.getElementById("modal-footer").setAttribute("thisID",id);
+                   Name=name;
+					Id=id;
+					
+				   }
+					 
+function listIngredients(){
+	
+	Qty=document.getElementById("qty").value;
+	//alert(qty);
+	
+	//var idpublic = id.split('_');
+	//var idpublic = idpublic[0]+'_'+idpublic[1]+'_0';
+		
+		document.cookie="list_ingredient_"+Id+"=<td>"+Name+"</td><td>"+Qty+"</td>";
+	    $('.selectedsupli').remove();
+	   var ca = document.cookie.split(';');
+		
+		
+		 var selected_count =0;
+		  for (var i = 0; i < ca.length; i++) 
+		  {
+			 // alert("1");
+			var cookie = ca[i];
+			var eqPos = cookie.indexOf("=");
+			var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+			if (name.indexOf("list_ingredient_") >= 0)
+			{
+				selected_count=selected_count+1;
+			}
+          }
+	if(selected_count > 0)
+	 {
+		 
+		// alert("2");
+		/* $('#compareh2').fadeOut('fast',function(){
+            $('#compareh2').html('<i class="icon-shopping-cart"></i> '+(selected_count)+' selected <span id="clearall"><i class="icon-trash"></i> Clear All</span>');
+            $('#compareh2').fadeIn('fast');
+        }); */
+		
+				var list ='<tr><th>Ingredient</th><th>Qty</th><th>Tools</th></tr>';
+			  for(var i=0; i<ca.length; i++) {
+				var c = ca[i];
+				
+				if (c.indexOf("list_ingredient_") >= 0)
+				{
+					var key = c.split('=')[0];
+					c = c.split('=')[1];
+					
+					var keynum = key.replace('list_ingredient_','');
+					
+									
+list = list+'<tr> '+c+'<td><button type="button" class="btn btn-default btn-sm btn-success" data-toggle="modal" data-target"#myModal"><i class="fa fa-pencil"></i></button> <button type="button" class="btn btn-default btn-sm btn-danger "><i class="fa fa-trash"></i></button></td></tr>';
+					   $('#compareul').html(list);
+					
+				}
+			   }
+			  
+		
+	 }
+	 else
+	 {
+		/* $('#compareh2').fadeOut('fast',function(){
+           $('#compareh2').html('<i class="icon-shopping-cart"></i> No Selected Buying Leads');
+            $('#compareh2').fadeIn('fast');
+        });  */
+		alert("3");
+		  $('#compareul').html('');
+	 }
+	
+} 						 
+					 
+</script> 

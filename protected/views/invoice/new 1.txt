@@ -1,0 +1,122 @@
+<div class="row">
+        <div class="col-xs-12">
+			<h2 class="page-header">
+				<i class="fa fa-globe"></i> Hill Horizon Hotel
+				<small class="pull-right">Date: <?php echo $Date; ?></small>
+			</h2>
+		</div>
+        <!-- /.col -->
+	</div>
+	<!-- info row -->
+	<div class="row invoice-info">
+        <div class="col-sm-6 invoice-col">
+				<address class="pull-left">
+				<strong>Hotel Hill Horizon<br>
+					Wattala<br>
+					Phone: 033-2261025<br>
+				Email: Hotelhillhorizon@gmail.com</strong>
+			</address>
+			
+		</div>
+        <!-- /.col -->
+        <div class="col-sm-6 invoice-col">
+		
+		</div>
+        <!-- /.col -->
+        
+        <!-- /.col -->
+	</div>
+	<!-- /.row -->
+	
+	<!-- Table row -->
+	<div class="row">
+        <div class="col-xs-12 table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Description</th>
+						<th>Quantity</th>
+						<th>Unit Price</th>
+						<th>Sub Total</th>
+					</tr>
+				</thead>
+				<tbody>
+				
+				
+					<?php 
+						$i_line=1;
+						$subtotal=0.00;
+						/* print_r($Room_data);
+						exit(); */
+						if(isset($Room_data)):
+						foreach($Room_data as $Room)
+						{
+							
+							echo "<tr>
+							<td>".$i_line."</td>
+							<td>".$Room['description']."</td>
+							<td>".$Room['qty']."</td>
+							<td>".$Room['price']."</td>
+							<td>".$Room['price']*$Room['qty']."</td>
+							</tr>";
+							
+							$i_line++;
+							$subtotal=bcadd($subtotal,$Room['price']*$Room['qty'],2);
+						}
+						
+						endif;
+						
+						
+					?>
+					
+					
+					
+				</tbody>
+			</table>
+		</div>
+        <!-- /.col -->
+	</div>
+	<!-- /.row -->
+	
+	<div class="row">
+        <!-- accepted payments column -->
+        
+        <!-- /.col -->
+        <div class="col-xs-12">
+			
+			
+			<div class="table-responsive pull-right">
+				<table class="table">
+					<tr>
+						<th style="width:50%">Subtotal:</th>
+						<td><?php echo $subtotal;?></td>
+					</tr>
+					<tr>
+						<th>Service Charge (10%)</th>
+						<?php $Service= bcmul(bcdiv($subtotal,100,2),10,2);?>
+						<td><?php echo $Service;?></td>
+					</tr>
+					<tr><?php $Total= bcadd($subtotal,$Service,2);?>
+						<th>Total:</th>
+						<td><?php echo $Total;?></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+        <!-- /.col -->
+	</div>
+	<!-- /.row -->
+	
+	<!-- this row will not appear when printing -->
+	<div class="row no-print">
+		
+
+        <div class="col-xs-12">
+			<button  class="btn btn-default" onclick="printContent()"><i class="fa fa-print"></i> Print</button>
+			<h3  class="pull-right text-green" > Paid</h3>
+			
+			
+			
+		</div>
+	</div>
